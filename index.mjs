@@ -4,13 +4,15 @@ import ws from 'ws';
 const serverPort = parseInt(process.env.SERVER_PORT || '80');
 const maxUsers = process.env.MAX_USERS ? parseInt(process.env.MAX_USERS) : Number.POSITIVE_INFINITY;
 const loadBalancerHost = new URL(process.env.LOAD_BALANCER_HOST);
-const containerName = process.env.CONTAINER_NAME;
 
 let currentLoad = 0;
-let loadBalancerSocket;
+
+function date() {
+    return new Date(Date.parse(new Date().toUTCString())).toISOString();
+}
 
 const server = http.createServer().listen(serverPort, () => {
-    console.log(new Date().toISOString(), `Server started on port: ${serverPort}`);
+    console.log(date(), `Server started on port: ${serverPort}`);
 });
 
 const wss = new ws.WebSocketServer({
@@ -24,7 +26,9 @@ wss.on('connection', (socket, request) => {
             socket.pong(JSON.stringify({ currentLoad }));
         });
     } else {
-        
-        socket.on('message')
+        socket.on('message', data => {
+            if (!data) return;
+            console.log(date(), `Message received: ${data.toString()}`);
+        });
     }
 })
