@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json /app
 
-RUN /bin/sh -c npm install
+RUN npm install
 
 COPY . /app
 
