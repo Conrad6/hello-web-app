@@ -5,5 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "ws": "^8.4.0"
+  },
+  "scripts":{
+    "dev": "set LOAD_BALANCER_HOST=ws://127.0.0.1:9000&&set MAX_USERS=2&&node index.mjs"
   }
 }
