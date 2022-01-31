@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Login to Docker
-      run: docker login --username conrad302 --password ${{ secrets.DOCKER_CLI_ACCESS_TOKEN }}
+      run: echo ${{ secrets.DOCKER_CLI_ACCESS_TOKEN }} | docker login --username conrad302 --password-stdin
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag conrad302/hello-web-app:2.1
     - name: Push image to Docker Hub
