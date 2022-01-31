@@ -9,7 +9,8 @@ on:
 jobs:
 
   build:
-
+    env:
+      DOCKER_IMAGE_TAG: "conrad302/hello-web-app:2.1"
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +18,6 @@ jobs:
     - name: Login to Docker
       run: echo ${{ secrets.DOCKER_CLI_ACCESS_TOKEN }} | docker login --username conrad302 --password-stdin
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag conrad302/hello-web-app:2.1
+      run: docker build . --file Dockerfile --tag ${{ env.DOCKER_IMAGE_TAG }}
     - name: Push image to Docker Hub
-      run: docker push conrad302/hello-web-app:2.1
+      run: docker push ${{ DOCKER_IMAGE_TAG }}
