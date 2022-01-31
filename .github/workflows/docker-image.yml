@@ -20,4 +20,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ env.DOCKER_IMAGE_TAG }}
     - name: Push image to Docker Hub
-      run: docker push ${{ DOCKER_IMAGE_TAG }}
+      run: docker push ${{ env.DOCKER_IMAGE_TAG }}
